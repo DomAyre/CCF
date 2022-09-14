@@ -34,10 +34,12 @@ namespace ccf::pal
     // quotes
     if (!is_sev_snp)
     {
+      CCF_APP_INFO("Generating Virtual Quote");
       node_quote_info.format = QuoteFormat::insecure_virtual;
     }
     else
     {
+      CCF_APP_INFO("Generating SNP Quote");
       node_quote_info.format = QuoteFormat::amd_sev_snp_v1;
       int fd = open(snp::DEVICE, O_RDWR | O_CLOEXEC);
       if (fd < 0)
@@ -72,6 +74,7 @@ namespace ccf::pal
         throw std::logic_error(
           "Failed to issue ioctl SEV_SNP_GUEST_MSG_REPORT");
       }
+      CCF_APP_INFO("IOCTL call succeeded");
 
       auto quote = &resp.report;
       auto quote_bytes = reinterpret_cast<uint8_t*>(&resp.report);
@@ -87,6 +90,7 @@ namespace ccf::pal
       auto params = nlohmann::json::object();
       params["api-version"] = "2020-10-15-preview";
 
+      CCF_APP_INFO("Fetching SNP endorsements");
       auto response = client.get(
         fmt::format(
           "/SevSnpVM/certificates/{}/{}",
@@ -98,6 +102,7 @@ namespace ccf::pal
       {
         throw std::logic_error("Failed to get attestation endorsements");
       }
+      CCF_APP_INFO("Successfully fetched SNP endorsements");
 
       node_quote_info.endorsements.assign(
         response.body.begin(), response.body.end());
