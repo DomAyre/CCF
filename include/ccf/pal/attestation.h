@@ -38,7 +38,7 @@ namespace ccf::pal
   {
     endorsement_cb(
       {
-        .format = QuoteFormat::insecure_virtual,
+        .format = attestation::Format::insecure_virtual,
       },
       {});
   }
@@ -52,7 +52,7 @@ namespace ccf::pal
   {
     QuoteInfo node_quote_info = {};
 
-    node_quote_info.format = QuoteFormat::amd_sev_snp_v1;
+    node_quote_info.format = attestation::Format::amd_sev_snp_v1;
     int fd = open(snp::DEVICE, O_RDWR | O_CLOEXEC);
     if (fd < 0)
     {
@@ -106,12 +106,12 @@ namespace ccf::pal
     attestation_measurement& unique_id,
     attestation_report_data& report_data)
   {
-    if (quote_info.format == QuoteFormat::insecure_virtual)
+    if (quote_info.format == attestation::Format::insecure_virtual)
     {
       unique_id = {};
       report_data = {};
     }
-    else if (quote_info.format == QuoteFormat::amd_sev_snp_v1)
+    else if (quote_info.format == attestation::Format::amd_sev_snp_v1)
     {
       auto quote =
         *reinterpret_cast<const snp::Attestation*>(quote_info.quote.data());
@@ -200,7 +200,7 @@ namespace ccf::pal
     const snp::EndorsementsServers& endorsements_servers = {})
   {
     QuoteInfo node_quote_info = {};
-    node_quote_info.format = QuoteFormat::oe_sgx_v1;
+    node_quote_info.format = attestation::Format::oe_sgx_v1;
 
     sgx::Evidence evidence;
     sgx::Endorsements endorsements;
@@ -258,7 +258,7 @@ namespace ccf::pal
     attestation_measurement& unique_id,
     attestation_report_data& report_data)
   {
-    if (quote_info.format != QuoteFormat::oe_sgx_v1)
+    if (quote_info.format != attestation::Format::oe_sgx_v1)
     {
       throw std::logic_error(
         fmt::format("Cannot verify non OE SGX report: {}", quote_info.format));

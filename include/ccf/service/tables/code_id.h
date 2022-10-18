@@ -11,7 +11,7 @@ namespace ccf
   struct CodeInfo
   {
     CodeStatus status;
-    QuoteFormat platform;
+    pal::attestation::Format platform;
   };
   using CodeIDs = ServiceMap<CodeDigest, CodeInfo>;
   namespace Tables
@@ -33,7 +33,7 @@ namespace ccf
     if (j.is_string())
     {
       code_info.status = j;
-      code_info.platform = QuoteFormat::oe_sgx_v1;
+      code_info.platform = pal::attestation::Format::oe_sgx_v1;
     }
     else
     {

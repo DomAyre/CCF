@@ -109,7 +109,7 @@ Identity, status and attestations (endorsed quotes) of the nodes hosting the net
    :project: CCF
    :members:
 
-.. doxygenenum:: ccf::QuoteFormat
+.. doxygenenum:: ccf::pal::attestation::Format
    :project: CCF
 
 ``nodes.endorsed_certificates``

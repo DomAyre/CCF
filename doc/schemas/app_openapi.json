@@ -102,7 +102,7 @@
             "$ref": "#/components/schemas/string"
           },
           "platform": {
-            "$ref": "#/components/schemas/QuoteFormat"
+            "$ref": "#/components/schemas/AttestationFormat"
           },
           "status": {
             "$ref": "#/components/schemas/CodeStatus"
@@ -276,7 +276,7 @@
         ],
         "type": "object"
       },
-      "QuoteFormat": {
+      "AttestationFormat": {
         "enum": [
           "OE_SGX_v1",
           "Insecure_Virtual",

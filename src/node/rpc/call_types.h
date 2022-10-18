@@ -42,7 +42,7 @@ namespace ccf
     {
       std::string digest;
       ccf::CodeStatus status;
-      std::optional<ccf::QuoteFormat> platform;
+      std::optional<ccf::pal::attestation::Format> platform;
     };
 
     struct Out

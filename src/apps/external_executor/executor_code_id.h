@@ -71,7 +71,7 @@ struct GetExecutorCode
   {
     std::string digest;
     ExecutorCodeStatus status;
-    std::optional<ccf::QuoteFormat> platform;
+    std::optional<ccf::pal::attestation::Format> platform;
   };
 
   struct Out
@@ -89,7 +89,7 @@ DECLARE_JSON_REQUIRED_FIELDS(GetExecutorCode::Out, versions)
 struct ExecutorCodeInfo
 {
   ExecutorCodeStatus status;
-  ccf::QuoteFormat platform;
+  ccf::pal::attestation::Format platform;
 };
 
 DECLARE_JSON_TYPE(ExecutorCodeInfo);

@@ -32,7 +32,7 @@ namespace ccf
     NodeId node_id = {};
     std::vector<uint8_t> raw;
     std::vector<uint8_t> endorsements;
-    QuoteFormat format;
+    pal::attestation::Format format;
 
     std::string mrenclave = {}; // < Hex-encoded
   };
@@ -1523,7 +1523,7 @@ namespace ccf
           in.public_key};
         g.add_node(in.node_id, node_info);
         g.trust_node_code_id(in.code_digest, in.quote_info.format);
-        if (in.quote_info.format == QuoteFormat::amd_sev_snp_v1)
+        if (in.quote_info.format == pal::attestation::Format::amd_sev_snp_v1)
         {
           auto digest =
             AttestationProvider::get_security_policy_digest(in.quote_info)

@@ -11,7 +11,7 @@ namespace ccf
   QuoteVerificationResult verify_enclave_measurement_against_store(
     kv::ReadOnlyTx& tx,
     const CodeDigest& unique_id,
-    const QuoteFormat& quote_format)
+    const pal::attestation::Format& quote_format)
   {
     auto code_ids = tx.ro<CodeIDs>(Tables::NODE_CODE_IDS);
     auto code_id_info = code_ids->get(unique_id);
@@ -89,7 +89,7 @@ namespace ccf
   QuoteVerificationResult verify_security_policy_against_store(
     kv::ReadOnlyTx& tx, const QuoteInfo& quote_info)
   {
-    if (quote_info.format != QuoteFormat::amd_sev_snp_v1)
+    if (quote_info.format != pal::attestation::Format::amd_sev_snp_v1)
     {
       throw std::logic_error(
         "Attempted to verify security policy for an unsupported platform");
@@ -138,12 +138,12 @@ namespace ccf
       return QuoteVerificationResult::Failed;
     }
 
-    if (quote_info.format == QuoteFormat::insecure_virtual)
+    if (quote_info.format == pal::attestation::Format::insecure_virtual)
     {
       LOG_FAIL_FMT("Skipped attestation report verification");
       return QuoteVerificationResult::Verified;
     }
-    else if (quote_info.format == QuoteFormat::amd_sev_snp_v1)
+    else if (quote_info.format == pal::attestation::Format::amd_sev_snp_v1)
     {
       auto rc = verify_security_policy_against_store(tx, quote_info);
       if (rc != QuoteVerificationResult::Verified)

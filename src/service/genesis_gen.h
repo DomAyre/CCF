@@ -412,7 +412,7 @@ namespace ccf
     }
 
     void trust_node_code_id(
-      const CodeDigest& node_code_id, const QuoteFormat& platform)
+      const CodeDigest& node_code_id, const pal::attestation::Format& platform)
     {
       auto codeid = tx.rw(tables.node_code_ids);
       codeid->put(

@@ -13,7 +13,7 @@ namespace nobuiltins
 {
   struct NodeQuote
   {
-    ccf::QuoteFormat quote_format;
+    ccf::pal::attestation::Format quote_format;
     std::vector<uint8_t> quote;
     std::vector<uint8_t> endorsements;
   };

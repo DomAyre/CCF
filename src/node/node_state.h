@@ -293,7 +293,7 @@ namespace ccf
       }
 
       // Verify that the security policy matches the quoted digest of the policy
-      if (quote_info.format == QuoteFormat::amd_sev_snp_v1)
+      if (quote_info.format == pal::attestation::Format::amd_sev_snp_v1)
       {
         auto quoted_digest =
           AttestationProvider::get_security_policy_digest(quote_info);
@@ -370,12 +370,12 @@ namespace ccf
         [this](
           const QuoteInfo& quote_info_,
           const pal::snp::EndorsementEndpointsConfiguration& endpoint_config) {
-          if (quote_info_.format != QuoteFormat::amd_sev_snp_v1)
+          if (quote_info_.format != pal::attestation::Format::amd_sev_snp_v1)
           {
             // Note: Node lock is already taken here as this is called back
             // synchronously with the call to pal::generate_quote
             CCF_ASSERT_FMT(
-              quote_info_.format == QuoteFormat::insecure_virtual ||
+              quote_info_.format == pal::attestation::Format::insecure_virtual ||
                 !quote_info_.endorsements.empty(),
               "SGX quote generation should have already fetched endorsements");
             quote_info = quote_info_;
